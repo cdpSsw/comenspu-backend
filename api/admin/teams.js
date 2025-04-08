@@ -82,7 +82,7 @@ router.get("/images", async (req, res) => {
 
 router.post(
   "/",
-  authorize(["admin"]),
+  authorize(["admin"]), 
   upload.single("image"),
   async (req, res) => {
     try {
