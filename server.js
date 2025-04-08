@@ -40,7 +40,6 @@ app.use(cors({
             "https://cdpssw.github.io/comenspu-frontend",
         ];
 
-        // ถ้า origin เป็น undefined (เช่นการร้องขอจาก Postman หรือเครื่องในเครือข่ายเดียวกัน)
         if (!origin) {
             return callback(null, true);
         }
@@ -52,7 +51,7 @@ app.use(cors({
             callback(new Error('Not allowed by CORS'));
         }
     },
-    credentials: true,  // อนุญาตให้ใช้ credentials (cookies หรือ HTTP authentication)
+    credentials: true,
 }));
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));

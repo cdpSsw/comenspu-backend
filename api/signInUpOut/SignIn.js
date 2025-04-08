@@ -82,7 +82,7 @@ router.post("/", async (req, res) => {
     // });
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true, // true if you're in production (HTTPS)
+      secure: false, // true if you're in production (HTTPS)
       sameSite: "None",  // necessary for cross-origin cookies
       domain: ".github.io",  // Change to the appropriate domain
       maxAge: 3600000,  // 1 hour
