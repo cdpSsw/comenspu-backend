@@ -10,7 +10,7 @@ router.post("/", (_, res) => {
 
   res.clearCookie("token", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",  // true in production
+    secure: false,  // true in production
     sameSite: "None",  // ensure this matches the cookie set
     domain: ".github.io",  // use the correct domain in production
 });
