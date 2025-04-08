@@ -32,12 +32,21 @@ const contact = require('./api/pages/contact');
 
 const app = express();
 app.use(cookieParser());
-app.use(cors(
-    {
-        origin: process.env.CORS_ORIGIN,
-        credentials: true,
-    }
-));
+app.use(cors({
+    origin: function(origin, callback) {
+        const allowedOrigins = [
+            "https://cdpssw.github.io",  // URL ของ frontend
+            // เพิ่ม domains อื่นๆ หากต้องการ
+        ];
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+}));
+
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
