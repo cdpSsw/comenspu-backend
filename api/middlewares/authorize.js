@@ -6,24 +6,24 @@ const SECRET_KEY = process.env.JWT_SECRET;
 const authorize = (roles) => {
     return (req, res, next) => {
         const token = req.cookies.token; // อ่าน Token จาก Cookie
-
+  
         // ตรวจสอบว่า token มีอยู่ใน cookies หรือไม่
         if (!token) {
             console.error("No token found in cookies.");
             return res.status(401).json({ message: "Unauthorized" });
         }
-
+  
         try {
             // ตรวจสอบและ Decode Token
             const decoded = jwt.verify(token, SECRET_KEY);
             console.log("Decoded Token:", decoded);
-
+  
             // เช็ค Role ว่าตรงกับที่กำหนดใน middleware หรือไม่
             if (!roles.includes(decoded.role)) {
                 console.warn("🔴 Forbidden: Role does not match.");
                 return res.status(403).json({ message: "Forbidden" });
             }
-
+  
             req.user = decoded;  // เก็บข้อมูลผู้ใช้ใน request object
             next();  // ถ้า Token และ Role ผ่านก็ให้ไปที่ route ต่อไป
         } catch (err) {
@@ -37,7 +37,6 @@ const authorize = (roles) => {
             }
         }
     };
-};
-
-
+  };
+  
 module.exports = authorize;
