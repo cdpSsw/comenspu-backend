@@ -10,11 +10,11 @@ router.post("/", (_, res) => {
 
   res.clearCookie("token", {
     httpOnly: true,
-    secure: false,  // true in production
-    sameSite: "None",  // ensure this matches the cookie set
-    domain: ".github.io",  // use the correct domain in production
-});
-
+    secure: true, // ✅ ต้องเป็น true ถ้าใช้ sameSite: "None"
+    sameSite: "None", // ✅
+    // ❌ อย่าใส่ domain ถ้าคุณไม่ได้กำหนดตอน set
+    // ถ้า set cookie ไม่ได้กำหนด domain ก็ห้ามกำหนดตอน clear
+  });
 
   res.status(200).json({ message: "Signed out successfully" });
 });

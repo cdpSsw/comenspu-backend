@@ -82,11 +82,11 @@ router.post("/", async (req, res) => {
     // });
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // true if you're in production (HTTPS)
-      sameSite: "None",  // necessary for cross-origin cookies
-      domain: ".github.io",  // Change to the appropriate domain
-      maxAge: 3600000,  // 1 hour
-  });   
+      secure: true, // ✅ ต้องเป็น true ถ้าใช้ sameSite: "None"
+      sameSite: "None", // ✅ สำหรับ cross-origin cookie
+      // domain: ไม่ต้องกำหนด หรือกำหนดเป็น backend domain เช่น "comenspu-backend.onrender.com"
+      maxAge: 3600000,
+    });
 
     return res
       .status(200)
