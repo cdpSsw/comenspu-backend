@@ -37,11 +37,15 @@ app.use(cors({
         const allowedOrigins = [
             "https://cdpssw.github.io",               
             "https://cdpssw.github.io/comenspu-frontend",
-            "https://cdpssw.github.io/",               
-            "https://cdpssw.github.io/comenspu-frontend/",
         ];
         
-        if (allowedOrigins.indexOf(origin) !== -1) {
+        // ถ้า origin เป็น undefined (เช่นการร้องขอจาก Postman หรือเครื่องในเครือข่ายเดียวกัน)
+        if (!origin) {
+            return callback(null, true);
+        }
+
+        const isAllowedOrigin = allowedOrigins.some((allowedOrigin) => origin.includes(allowedOrigin));
+        if (isAllowedOrigin) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS'));
