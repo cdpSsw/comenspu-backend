@@ -35,9 +35,10 @@ app.use(cookieParser());
 app.use(cors({
     origin: function(origin, callback) {
         const allowedOrigins = [
-            "https://cdpssw.github.io",  // URL ของ frontend
-            // เพิ่ม domains อื่นๆ หากต้องการ
+            "https://cdpssw.github.io",               // URL ของ frontend
+            "https://cdpssw.github.io/comenspu-frontend"  // หากมี path เสริม
         ];
+        
         if (allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
