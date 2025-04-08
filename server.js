@@ -32,13 +32,14 @@ const contact = require('./api/pages/contact');
 
 const app = express();
 app.use(cookieParser());
+// ใช้ cors middleware
 app.use(cors({
     origin: function(origin, callback) {
         const allowedOrigins = [
-            "https://cdpssw.github.io",               
+            "https://cdpssw.github.io",
             "https://cdpssw.github.io/comenspu-frontend",
         ];
-        
+
         // ถ้า origin เป็น undefined (เช่นการร้องขอจาก Postman หรือเครื่องในเครือข่ายเดียวกัน)
         if (!origin) {
             return callback(null, true);
@@ -51,9 +52,8 @@ app.use(cors({
             callback(new Error('Not allowed by CORS'));
         }
     },
-    credentials: true,
+    credentials: true,  // อนุญาตให้ใช้ credentials (cookies หรือ HTTP authentication)
 }));
-
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
